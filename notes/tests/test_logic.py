@@ -1,9 +1,9 @@
 from http import HTTPStatus
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from notes.models import Note
-from notes.forms import NoteForm
 from pytils.translit import slugify
 
 User = get_user_model()
@@ -30,7 +30,7 @@ class TestRoutes(TestCase):
         response = self.client.post(url, data=self.add_data)
         self.client.post(url, data=self.add_data)
         self.assertEqual(Note.objects.count(), 2)
-        self.assertRedirects(response, reverse('notes:success'))  # new way to test duplicate slug
+        self.assertRedirects(response, reverse('notes:success'))
 
     def test_anonymous_create_new_note(self):
         url = reverse('notes:add')
